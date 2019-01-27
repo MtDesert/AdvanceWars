@@ -1,0 +1,14 @@
+Troops={
+	{name="Neutral",chinese="中立",
+	colors={0xFF404040,0xFF808080,0xFFC0C0C0,0xFFFFFFFF}},
+	{name="OrangeStar",chinese="橙星",
+	colors={0xFF700000,0xFFA02000,0xFFD04000,0xFFFF6000}},
+	{name="BlueMoon",chinese="蓝月",
+	colors={0xFF2030FF,0xFF4060FF,0xFF6090FF,0xFF80C0FF}},
+	{name="GreenEarth",chinese="绿地",
+	colors={0xFF004000,0xFF008000,0xFF00C000,0xFF00FF00}},
+	{name="YellowComet",chinese="黄彗",
+	colors={0xFF404000,0xFF808000,0xFFC0C000,0xFFFFFF00}},
+	{name="BlackHole",chinese="黑洞",
+	colors={0xFF101010,0xFF202020,0xFF303030,0xFF404040}}
+}

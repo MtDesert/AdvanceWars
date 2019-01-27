@@ -1,0 +1,20 @@
+Terrains={
+	--陆地自然环境
+	{name="Plain",defendLV=1},
+	{name="Wood",defendLV=2,hidable=true},
+	{name="Mountain",defendLV=4},
+	--水域环境
+	{name="River",defendLV=0,has4direction=true,tileType="Water"},
+	{name="Sea",defendLV=0,has4direction=true,tileType="Water"},
+	{name="Shoal",defendLV=0,has4direction=true,tileType="Water"},
+	{name="Reef",defendLV=2,hidable=true,tileType="Water"},
+	--人工地形
+	{name="Road",defendLV=0,has4direction=true,tileType="Way"},
+	{name="Bridge",defendLV=0,has4direction=true,tileType="Way"},
+	--据点
+	{name="City",defendLV=3,capturable=true,hasIncome=true},
+	{name="Factory",defendLV=3,capturable=true,hasIncome=true},
+	{name="AirFactory",defendLV=3,capturable=true,hasIncome=true},
+	{name="ShipFactory",defendLV=3,capturable=true,hasIncome=true},
+	{name="HQ",defendLV=4,capturable=true,hasIncome=true},
+}

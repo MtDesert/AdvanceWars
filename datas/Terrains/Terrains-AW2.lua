@@ -1,0 +1,13 @@
+Terrains=
+{
+	{name="MiniCannon"},
+	{name="BlackCannon"},
+	{name="MegaFactory"},
+	{name="MegaSilo"},
+	{name="Fortress"},
+	{name="Laser"},
+	{name="Volcano"},
+	{name="Deathray"},
+	{name="BlackObelisk"}
+	{name="Oozium"}
+}

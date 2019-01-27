@@ -1,0 +1,12 @@
+Troops={
+	{name="Raider",chinese="掠夺者",
+	colors={0xFF1A1A1A,0xFF343434,0xFF4E4E4E,0xFF686868}},
+	{name="Rubinelle",chinese="鲁比内尔",
+	colors={0xFF2E250C,0xFF5C5018,0xFF8A7524,0xFFB8A030}},
+	{name="WarWolf",chinese="战狼",
+	colors={0xFF400000,0xFF800000,0xFFC00000,0xFFFF0000}},
+	{name="Lazurian",chinese="拉祖里安",
+	colors={0xFF000080,0xFF404080,0xFF4040FF,0xFF8080FF}},
+	{name="IDS",chinese="智能防御系统",
+	colors={0xFF2E2E2E,0xFF5C5C5C,0xFF7A7A7A,0xFF989898}}
+}
