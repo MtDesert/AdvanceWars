@@ -1,5 +1,10 @@
+--系统
+Confirm,确定
+Cancel,取消
 AdvanceWars,高级战争
 AdvanceWars_LifeTime,高级战争之有生之年
+File,文件
+Directory,目录
 --主菜单
 SingleMode,单机模式
 OnlineMode,联机模式

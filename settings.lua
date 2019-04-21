@@ -36,6 +36,8 @@ imagesPath={
 	CommandersBodies="images/Commanders/Body"
 }
 
+senarioScriptsPath="scripts"
+
 --用于支持文件打开界面的操作
 defaultPath={
 	Corps={title="兵种数据",path="datas/Corps"},
@@ -43,4 +45,5 @@ defaultPath={
 	Troops={title="部队数据",path="datas/Troops"},
 	Terrains={title="地形数据",path="datas/Terrains"},
 	Weathers={title="天气数据",path="datas/Weathers"},
+	Senarios={title="剧本数据",path="scripts"},
 }
