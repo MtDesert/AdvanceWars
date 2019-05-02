@@ -37,6 +37,7 @@ imagesPath={
 }
 
 senarioScriptsPath="scripts"
+mapsPath="maps/awbw"
 
 --用于支持文件打开界面的操作
 defaultPath={
