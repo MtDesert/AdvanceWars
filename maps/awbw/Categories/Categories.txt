@@ -6,29 +6,25 @@ S_Rank,25
 A_Rank,22
 HistoricalGeographical,19
 
-//次分类,一张地图一般有1个主分类,但可以有多个次分类
-/HallOfFame,32
-
-//普通类
-/CasualPlay,38
-/ToyBox,14
+HallOfFame,32
 
 //地图特性
-/BaseLight,30
-/FFAMultiplay,13
-/FogOfWar,34
-/HeavyNaval,28
-/HighFunds,33
-/Innovative,35
-/LimitedHighFunds,39
-/MixedBase,31
-/TeamPlay,12
-/TeleportTile,27
-
-//未分类,这类地图在后期可能会归类到其它分类中
-/New,23
-/UnderReview,10
+FogOfWar,34
+BaseLight,30
+HeavyNaval,28
+MixedBase,31
+HighFunds,33
+LimitedHighFunds,39
+FFAMultiplay,13
+TeamPlay,12
+Innovative,35
+TeleportTile,27
 
 //恶搞类,该类地图对战性基本没有,一般用来吐槽或者画图
-/Joke,4
-/Sprite,5
+ToyBox,14
+Joke,4
+Sprite,5
+//未分类,这类地图在后期可能会归类到其它分类中
+CasualPlay,38
+UnderReview,10
+New,23

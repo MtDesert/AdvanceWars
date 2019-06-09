@@ -25,12 +25,4 @@ Terrains={
 	{name="Pipe",defendLV=0,has4direction=true,tileType="Pipe"},
 	{name="PipeSeam",defendLV=0,has4direction=true,tileType="Pipe"},
 	{name="PipeSeam_Broken",defendLV=-1,has4direction=true,tileType="Pipe"},
-	--主要方法
-	find = function(para)--通过para查找地形,para可以是序数,也可以是地形的名字
-		local tp = type(para)
-		for key,val in ipairs(Terrains) do
-			if tp=='number' and key == para then return key,val end
-			if tp=='string' and val.name == para then return key,val end
-		end
-	end
 }

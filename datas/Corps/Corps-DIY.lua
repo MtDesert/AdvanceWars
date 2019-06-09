@@ -1,5 +1,4 @@
-Corps=
-{
+Corps={
 	--步兵
 	{name="Infantry",corpType='LandForce',price=1000,vision=2,
 	move={movement=3,moveType="Foot",gasMax=99},

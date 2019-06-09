@@ -1,42 +1,20 @@
 --语言文件
 language="chinese"
 
---兵种资料
-CorpFilenames={
-	"datas/Corps/Corps-DIY.lua"
-}
-
---部队资料
-TroopFilenames={
-	"datas/Troops/Troops-AWDS.lua",
-	"datas/Troops/Troops-AWDOR.lua",
-	"datas/Troops/Troops-AWBW.lua",
-}
-
---CO资料
-CommanderFilenames={
-	"datas/Commanders/CO-AW1.lua",
-	"datas/Commanders/CO-AW2.lua",
-	"datas/Commanders/CO-AWDS.lua",
-	"datas/Commanders/CO-AWDOR.lua",
-	"datas/Commanders/CO-SFC.lua",
-	"datas/Commanders/CO-DIY.lua"
-}
-
---地形资料
-TerrainFilenames={
-	"datas/Terrains/Terrains-DIY.lua"
-}
+--数据
+FilenameCorps="datas/Corps.lua"--兵种资料
+FilenameTroops="datas/Troops.lua"--部队资料
+FilenameTerrains="datas/Terrains.lua"--地形资料
+FilenameCommanders=""--指挥官资料
 
 --纹理加载路径
-imagesPath={
-	Corps="images/Corps",
-	Troops="images/Troops",
-	CommandersHeads="images/Commanders/Head",
-	CommandersBodies="images/Commanders/Body"
-}
+ImagesPathCorps="images/Corps"
+ImagesPathTroops="images/Troops"
+ImagesPathTerrains="images/Terrains"
+ImagesPathCommanders="images/Commanders/Head"
 
 senarioScriptsPath="scripts"
+--mapsPath="maps/awbw"
 mapsPath="maps/awbw"
 
 --用于支持文件打开界面的操作
