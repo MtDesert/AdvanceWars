@@ -22,6 +22,8 @@ CombatMode,死斗模式
 --联机模式
 Register,注册
 Login,登陆
+Username,用户名
+Password,密码
 PlayerInfo,玩家信息
 LeaveMessage,留言
 OnlinePlayer,在线玩家
