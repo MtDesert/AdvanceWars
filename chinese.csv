@@ -14,6 +14,7 @@ MilitaryRecord,军事记录
 GameSetting,游戏设置
 About,关于
 --单机模式
+MapView,地图查看
 ScenarioMode,剧情模式
 MissionMode,任务模式
 VersusMode,对战模式
@@ -37,4 +38,5 @@ WeathersFiles,天气资料
 DesignMaps,设计地图
 DesignCommanders,设计指挥官
 --文件界面
+MapSelect,地图选择
 SelectMap,选择地图
