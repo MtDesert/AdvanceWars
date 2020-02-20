@@ -1,0 +1,169 @@
+--[[
+兵种表,用于描述兵种的基础数据,每个兵种有如下数据
+兵种名字name,字符串,用于指明具体是什么兵种,不要重复
+翻译translate,字符串,用于显示,根据需要自行翻译成不同语言版本
+兵种类型corpType,字符串,指明是空军(AirForce)陆军(LandForce)还是海军(NavyForce),当然可以自定义新的兵种类型
+价格price,正整数,制造一个单位该兵种的花费,修理时候的花费也受此影响
+视野vision,正整数,在雾中行动时候所能看到的范围
+移动move,表结构,如下{
+	移动力movement,正整数,表明正常情况下能移动多远
+	移动类型moveType,字符串,作为移动损耗的计算依据之一
+	燃料最大值gasMax,正整数,表明兵种可持有的最大燃料量,移动时候会损耗燃料,损耗完后无法移动
+}
+武器表weapons,表结构(非必须),存放若干武器(一般来说只需要主武器和副武器)
+武器结构如下{
+	武器名name,字符串,表示名字
+	最大载弹量ammunitionMax,正整数,
+}
+]]
+
+Corps={
+	--步兵
+	{name="Infantry",translate="步兵",corpType='LandForce',price=1000,vision=2,
+	move={movement=3,moveType="Foot",gasMax=99},
+	weapons={
+		{name="MachineGun"}},
+	capturable=true--[[具有占领能力]]},
+	--机械兵
+	{name="Mech",translate="机械兵",corpType='LandForce',price=3000,vision=2,
+	move={movement=2,moveType="Boot",gasMax=70},
+	weapons={
+		{name="RocketTube",ammunitionMax=3},
+		{name="MachineGun"}},
+	capturable=true--[[具有占领能力]]},
+	--装甲车
+	{name="APC",translate="装甲车",corpType='LandForce',price=5000,vision=1,
+	move={movement=6,moveType="Tread",gasMax=70},
+	suppliable=true,--[[可补给所有部队]]},
+	--侦察车
+	{name="Recon",translate="侦察车",corpType='LandForce',price=4000,vision=5,
+	move={movement=8,moveType="Tire",gasMax=80},
+	weapons={
+		{name="MachineGun"}},
+	},
+	--大炮
+	{name="Artillery",translate="大炮",corpType='LandForce',price=6000,vision=1,
+	move={movement=5,moveType="Tread",gasMax=50},
+	weapons={
+		{name="Cannon",minRange=2,maxRange=3,ammunitionMax=9}}
+	},
+	--火箭车
+	{name="Rockets",translate="火箭车",corpType='LandForce',price=15000,vision=1,
+	move={movement=5,moveType="Tire",gasMax=50},
+	weapons={
+		{name="Rocket",minRange=3,maxRange=5,ammunitionMax=6}}
+	},
+	--导弹车
+	{name="Missiles",translate="导弹车",corpType='LandForce',price=12000,vision=5,
+	move={movement=4,moveType="Tire",gasMax=50},
+	weapons={
+		{name="Missile",minRange=3,maxRange=5,ammunitionMax=6}}
+	},
+	--坦克
+	{name="Tank",translate="坦克",corpType='LandForce',price=7000,vision=3,
+	move={movement=6,moveType="Tread",gasMax=70},
+	weapons={
+		{name="Cannon",ammunitionMax=9},
+		{name="MachineGun"}}
+	},
+	--中型坦克
+	{name="MiddleTank",translate="中型坦克",corpType='LandForce',price=16000,vision=1,
+	move={movement=5,moveType="Tread",gasMax=50},
+	weapons={
+		{name="Cannon",ammunitionMax=8},
+		{name="MachineGun"}}
+	},
+	--防空炮
+	{name="AntiAir",translate="防空炮",corpType='LandForce',price=8000,vision=2,
+	move={movement=6,moveType="Tread",gasMax=60},
+	weapons={
+		{name="Vulcan",ammunitionMax=9}}
+	},
+	--运输直升机
+	{name="TransportCopter",translate="运输直升机",corpType='AirForce',price=5000,vision=2,
+	move={movement=6,moveType="Heli",gasMax=99},
+	},
+	--武装直升机
+	{name="BattleCopter",translate="武装直升机",corpType='AirForce',price=9000,vision=3,
+	move={movement=6,moveType="Heli",gasMax=99},
+	weapons={
+		{name="Missile",ammunitionMax=6},
+		{name="MachineGun"}}
+	},
+	--战斗机
+	{name="Fighter",translate="战斗机",corpType='AirForce',price=20000,vision=2,
+	move={movement=9,moveType="Plane",gasMax=99},
+	weapons={
+		{name="Missile",ammunitionMax=9}}
+	},
+	--轰炸机
+	{name="Bomber",translate="轰炸机",corpType='AirForce',price=22000,vision=2,
+	move={movement=7,moveType="Plane",gasMax=99},
+	weapons={
+		{name="Bomb",ammunitionMax=9}}
+	},
+	--战舰
+	{name="BattleShip",translate="战舰",corpType='NavyForce',price=28000,vision=2,
+	move={movement=5,moveType="Ship",gasMax=99},
+	weapons={
+		{name="Cannon",minRange=2,maxRange=6,ammunitionMax=9}}
+	},
+	--巡洋舰
+	{name="Cruiser",translate="巡洋舰",corpType='NavyForce',price=18000,vision=3,
+	move={movement=6,moveType="Ship",gasMax=99},
+	weapons={
+		{name="Missile",ammunitionMax=6},
+		{name="AntiAirGun"}}
+	},
+	--潜艇
+	{name="Submarine",translate="潜艇",corpType='NavyForce',price=20000,vision=5,
+	move={movement=5,moveType="Ship",gasMax=60},
+	weapons={
+		{name="Torpedo",ammunitionMax=6}},
+	hidable=true--[[可隐藏]]},
+	--登录艇
+	{name="Lander",translate="登陆艇",corpType='NavyForce',price=12000,vision=1,
+	move={movement=6,moveType="Boat",gasMax=99},
+	},
+	--新型核能坦克
+	{name="NeoTank",translate="新型坦克",corpType='LandForce',price=22000,vision=1,
+	move={movement=6,moveType="Tread",gasMax=99},
+	weapons={
+		{name="Cannon",ammunitionMax=9},
+		{name="MachineGun"}},
+	},
+	--黑船
+	{name="BlackBoat",translate="黑船",corpType='NavyForce',price=7500,vision=1,
+	move={movement=7,moveType="Boat",gasMax=60},
+	repairable=true--[[可修复别的单位]]},
+	--黑炸弹
+	{name="BlackBomb",translate="黑弹",corpType='AirForce',price=25000,vision=1,
+	move={movement=9,moveType="Plane",gasMax=45},
+	explodable=true--[[可爆炸]]},
+	--巨型坦克
+	{name="MegaTank",translate="巨型坦克",corpType='LandForce',price=28000,vision=1,
+	move={movement=4,moveType="Tread",gasMax=50},
+	weapons={
+		{name="Cannon",ammunitionMax=3},
+		{name="MachineGun"}}
+	},
+	--管道炮
+	{name="PipeRunner",translate="管道炮",corpType='LandForce',price=20000,vision=4,
+	move={movement=9,moveType="Pipe",gasMax=50},
+	weapons={
+		{name="Cannon",minRange=2,maxRange=5,ammunitionMax=9},
+		{name="MachineGun"}}
+	},
+	--航空母舰
+	{name="Carrier",translate="航空母舰",corpType='NavyForce',price=30000,vision=4,
+	move={movement=5,moveType="Ship",gasMax=99},
+	weapons={
+		{name="Missile",ammunitionMax=9}}
+	},
+	--隐形飞机
+	{name="Stealth",translate="隐形飞机",corpType='AirForce',price=24000,vision=4,
+	move={movement=6,moveType="Plane",gasMax=60},
+	weapons={
+		{name="Missile",ammunitionMax=6}}
+	}
+}

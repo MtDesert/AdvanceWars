@@ -1,0 +1,47 @@
+--[[
+地形代码表,Terrains下的每条记录代表一种地形信息,结构如下(注:bool型默认为false)
+地形名字name,字符串,用于地图的编码解码,以及地形判断
+地形名字翻译translate,字符串,保存翻译后的文本,不同语言习惯的人可以修改此值成自己习惯的语言
+防御等级defendLV,正整数,地形的防御能力,每一级使单位防御增加10%
+可否占领capturable,bool型,具有占领功能的兵种可以进行占领
+是否具有收入hasIncome,bool型,可占领的据点不一定会有收入
+生产部队类型buildCorpType,字符串(可无),指明可以生产什么类型的部队,比如"Navy","LandForce","AirForce"
+是否可隐藏地形hidable,bool型,隐藏地形只有靠近的时候才能发现内部情况
+地形是否具有4个方向has4direction,主要用于支持调整图块功能
+图块类型tileType,主要用于连通性计算,与has4direction有关
+说明note,字符串(可无),用于说明地形特性,建议用和translate一样的语言来描述
+]]
+
+Terrains={
+	--自然地形
+	{name="WasteLand",translate="荒地",defendLV=0,note="几乎只有泥土和小石头的开阔地形,下雨的时候容易变得泥泞不堪"},
+	{name="Plain",translate="平原",defendLV=1,note="长有草的开阔地形,对普通的轮胎移动有影响,下雪时候容易因积雪而陷入其中"},
+	{name="Wood",translate="树林",defendLV=2,hidable=true,note="长满树木和灌木的地方,对体型大的车辆部队有一定的阻碍作用,不过在起雾的情况下是个很好的掩体"},
+	{name="Mountain",translate="高山",defendLV=4,note="比较陡峭的山,对于只有轮子的车辆来说没法通过,也会降低步兵的行进速度,雨雪天登山则会变得困难,不过占据山地算是得到了易守难攻的地利优势"},
+	{name="River",translate="河流",defendLV=0,has4direction=true,tileType="Water",note="流动的水域,车辆基本无法通过,也会降低步兵的行进速度,下雨天更难渡河"},
+	{name="Sea",translate="海洋",defendLV=0,has4direction=true,tileType="Water",note="充满海水的地形,只有海军和空军能通过"},
+	{name="Shoal",translate="海滩",defendLV=0,has4direction=true,tileType="Water",note="海边有沙的沙滩,可以让地面部队通过登陆用的舰艇来登陆"},
+	{name="Reef",translate="礁石",defendLV=2,hidable=true,tileType="Water",note="海面上有石头突起的地方,起雾的时候可以把部队藏在其中让别人误以为是礁石"},
+	--人工地形
+	{name="Road",translate="道路",defendLV=0,has4direction=true,tileType="Way",note="为了便于车辆通行而修建的道路,不容易积雨雪的设计"},
+	{name="Bridge",translate="桥",defendLV=0,has4direction=true,tileType="Way",note="和道路基本一样的设计,不过船可以通过桥底"},
+	{name="Ruin",translate="废墟",defendLV=1,hidable=true,node="因战争而损毁的各种建筑,让地面部队难以行进,但是易于部队在雾中隐藏踪迹"},
+	--生产与修复单位的地形
+	{name="City",translate="城市",defendLV=3,capturable=true,hasIncome=true,note="战争中的主要经济来源,兵家必争之地"},
+	{name="AirPort",translate="临时机场",defendLV=1,capturable=true,note="临时建造的据点,主要用于飞机的补给和修复"},
+	{name="ShipPort",translate="临时港口",defendLV=1,capturable=true,note="临时建造的据点,主要用于船只的补给和修复"},
+	{name="Factory",translate="工厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复陆军的据点,一般来说重要性比城市高"},
+	{name="AirFactory",translate="飞机厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复空军的工厂"},
+	{name="ShipFactory",translate="船厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复海军的工厂"},
+	--特殊用途的人工地形
+	{name="ComTower",translate="通讯塔",defendLV=2,capturable=true,note="便于指挥部队的据点,通过指挥来提升部队的杀伤力"},
+	{name="Radar",translate="雷达",defendLV=2,capturable=true,note="可以探测周围环境的雷达站,在雾战时候可观测雷达周边是否有不明实体接近"},
+	{name="Lab",translate="研究所",defendLV=3,capturable=true,note="研究特定兵器的地方"},
+	{name="HQ",translate="总部",defendLV=4,capturable=true,hasIncome=true,note="总指挥整个部队的地方"},
+	{name="Silo",translate="火箭井",defendLV=4,capturable=true,note="带有火箭的发射井,火箭发射后可以会变成空火箭井"},
+	{name="SiloEmpty",translate="火箭井(空)",defendLV=3,capturable=true,note="发射火箭后的发射井"},
+	--管道
+	{name="Pipe",translate="管道",defendLV=0,has4direction=true,tileType="Pipe"},
+	{name="PipeSeam",translate="管道接口",defendLV=0,has4direction=true,tileType="Pipe"},
+	{name="PipeSeam_Broken",translate="管道接口(碎)",defendLV=-1,has4direction=true,tileType="Pipe"},
+}
