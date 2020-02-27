@@ -14,6 +14,7 @@ MilitaryRecord,军事记录
 GameSetting,游戏设置
 About,关于
 --单机模式
+NewMap,新建地图
 MapView,地图查看
 ScenarioMode,剧情模式
 MissionMode,任务模式
@@ -55,3 +56,9 @@ Launch,发射
 Repair,修复
 Explode,爆炸
 Wait,待命
+--地图编辑
+MapInfo,地图信息
+MapName,地图名
+Author,作者
+Width,宽度
+Height,高度

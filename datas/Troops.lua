@@ -33,7 +33,7 @@ Troops={
 	colors={0xFF1A1A1A,0xFF343434,0xFF4E4E4E,0xFF686868,}},
 	{name="Rubinelle",translate="鲁比内尔",
 	colors={0xFF0C252E,0xFF18505C,0xFF24758A,0xFF30A0B8,}},
-	{name="Rubinelle-Wolf",translate="鲁比内尔战狼",
+	{name="Rubinelle--12thBattalion",translate="鲁比内尔战狼",
 	colors={0xFF000040,0xFF000080,0xFF0000C0,0xFF0000FF,}},
 	{name="Lazurian",translate="拉祖里安",
 	colors={0xFF800000,0xFF804040,0xFFFF4040,0xFFFF8080,}},

@@ -20,7 +20,8 @@ imagesPathCorps="images/Corps"
 imagesPathTroops="images/Troops"
 imagesPathTerrainCodes="images/Terrains"
 imagesPathCommanders="images/Commanders/Head"
-imagesPathCommandersBody="Commanders/Body";
+imagesPathCommandersBody="Commanders/Body"
+imagesPathCorpMenu="images/Icons"
 
 mapsPath="maps/awbw"
 scenarioScriptsPath="scripts"
