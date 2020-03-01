@@ -16,11 +16,12 @@ dataWeathers="datas/Weathers.lua"
 ruleMove="codes/movement.lua"--移动规则
 
 --纹理加载路径
-imagesPathCorps="images/Corps"
-imagesPathTroops="images/Troops"
-imagesPathTerrainCodes="images/Terrains"
-imagesPathCommanders="images/Commanders/Head"
-imagesPathCommandersBody="Commanders/Body"
+imagesPathCorps="images/Corps"--兵种
+imagesPathTroops="images/Troops"--势力图标
+imagesPathTerrainCodes="images/Terrains"--地形
+imagesPathCommanders="images/Commanders/Head"--CO头像
+imagesPathCommandersBody="Commanders/Body"--CO全身像
+imagesPathIcons="images/Icons"--图标集合
 imagesPathCorpMenu="images/Icons"
 
 mapsPath="maps/awbw"

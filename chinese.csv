@@ -62,3 +62,13 @@ MapName,地图名
 Author,作者
 Width,宽度
 Height,高度
+Edit,编辑
+Intel,情报
+CorpSelect,兵种选择
+TerrainSelect,地形选择
+TroopSelect,部队选择
+Fill,填充
+Delete,删除
+LoadFile,加载文件
+SaveFile,保存文件
+ExitMap,退出编辑
