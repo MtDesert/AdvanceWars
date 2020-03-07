@@ -30,9 +30,9 @@ Terrains={
 	{name="City",translate="城市",defendLV=3,capturable=true,hasIncome=true,note="战争中的主要经济来源,兵家必争之地"},
 	{name="AirPort",translate="临时机场",defendLV=1,capturable=true,note="临时建造的据点,主要用于飞机的补给和修复"},
 	{name="ShipPort",translate="临时港口",defendLV=1,capturable=true,note="临时建造的据点,主要用于船只的补给和修复"},
-	{name="Factory",translate="工厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复陆军的据点,一般来说重要性比城市高"},
-	{name="AirFactory",translate="飞机厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复空军的工厂"},
-	{name="ShipFactory",translate="船厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复海军的工厂"},
+	{name="Factory",translate="工厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复陆军的据点,一般来说重要性比城市高",buildCorpType="LandForce"},
+	{name="AirFactory",translate="飞机厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复空军的工厂",buildCorpType="AirForce"},
+	{name="ShipFactory",translate="船厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复海军的工厂",buildCorpType="Navy"},
 	--特殊用途的人工地形
 	{name="ComTower",translate="通讯塔",defendLV=2,capturable=true,note="便于指挥部队的据点,通过指挥来提升部队的杀伤力"},
 	{name="Radar",translate="雷达",defendLV=2,capturable=true,note="可以探测周围环境的雷达站,在雾战时候可观测雷达周边是否有不明实体接近"},

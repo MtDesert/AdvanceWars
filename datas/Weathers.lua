@@ -1,0 +1,14 @@
+--[[这是天气表,属性如下
+name,名字,用于判断
+translate,译文,用于显示
+note,说明
+]]
+Weathers={
+	{name="Normal",translate="正常",note="多云"},
+	{name="Rainy",translate="雨天",isRainy=true,note="视野-1"},
+	{name="RainStorm",translate="暴雨",isRainy=true,isStorm=true,note="视野最低"},
+	{name="Snowy",translate="雪天",isSnowy=true,note="移动燃料损耗加倍"},
+	{name="Blizzard",translate="暴雪",isSnowy=true,isStorm=true,note="移动-1"},
+	{name="Sandy",translate="沙尘",isSandy=true,note="攻击-30%"},
+	{name="SandStorm",translate="沙暴",isSandy=true,isStorm=true,note="射程-1"},
+}

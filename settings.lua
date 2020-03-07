@@ -9,7 +9,7 @@ bodyImagePath="images/Commanders/Body"
 dataCorps="datas/Corps.lua"--兵种资料
 dataTroops="datas/Troops.lua"--部队资料
 dataTerrainCodes="datas/Terrains.lua"--地形资料
-dataCommanders=""--指挥官资料
+dataCommanders="datas/Commanders.lua"--指挥官资料
 dataWeathers="datas/Weathers.lua"
 
 --规则

@@ -69,6 +69,10 @@ TerrainSelect,地形选择
 TroopSelect,部队选择
 Fill,填充
 Delete,删除
-LoadFile,加载文件
-SaveFile,保存文件
+LoadMap,加载文件
+SaveMap,保存文件
 ExitMap,退出编辑
+--比赛准备
+Team,队
+PLR,人脑
+COM,电脑
