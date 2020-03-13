@@ -28,6 +28,7 @@ Corps={
 	{name="Infantry",translate="步兵",corpType='LandForce',price=1000,vision=2,
 	move={movement=3,moveType="Foot",gasMax=99},
 	weapons={
+		{name=""},
 		{name="MachineGun"}},
 	capturable=true},
 
@@ -44,10 +45,6 @@ Corps={
 		{name="MachineGun"}},
 	capturable=true},
 
-	{name="TransportTruck",translate="运输卡车",corpType='LandForce',price=5000,vision=2,
-	move={movement=7,moveType="Tire",gasMax=70},
-	},
-
 	{name="SupplyTruck",translate="补给卡车",corpType='LandForce',price=4000,vision=1,
 	move={movement=7,moveType="Tire",gasMax=60},
 	suppliable=true},
@@ -58,6 +55,12 @@ Corps={
 
 	{name="Recon",translate="侦察车",corpType='LandForce',price=4000,vision=5,
 	move={movement=8,moveType="Tire",gasMax=80},
+	weapons={
+		{name="MachineGun"}},
+	},
+
+	{name="TransportTruck",translate="运输卡车",corpType='LandForce',price=5000,vision=2,
+	move={movement=7,moveType="Tire",gasMax=70},
 	weapons={
 		{name="MachineGun"}},
 	},
@@ -217,7 +220,7 @@ Corps={
 	{name="Destroyer",translate="驱逐舰",corpType='NavyForce',price=25000,vision=2,
 	move={movement=5,moveType="Ship",gasMax=99},
 	weapons={
-		{name="Cannon",ammunitionMax=9}}
+		{name="Cannon",ammunitionMax=6}}
 	},
 
 	{name="Cruiser",translate="巡洋舰",corpType='NavyForce',price=18000,vision=3,

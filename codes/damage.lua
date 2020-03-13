@@ -1,239 +1,218 @@
---这是损伤计算模块
-
-local attacker=nil
-local defender=nil
-
---从兵种和武器上判断能否攻击对方
---atker攻击的兵种
---wpnIdx所使用的武器
---dfder防御的兵种
-function caculateDamage(atker,wpn,dfder)--
-	attacker=atker
-	defender=dfder
-	--开始计算攻击参数
-	attacker.corpDamage=Corps.baseDamage(attacker.corp,wpn,defender.corp)--基本损伤(%)
-	attacker.towerAttack = 0--指令塔修正(%)
-	attacker.attackPower = attacker.corpDamage * (1 + attacker.towerAttack / 100) * (attacker.unit:presentHP() / 10)--实际攻击力(%)=基本损伤*(1+指令塔修正(%))*(当前表现hp/10)
-	--开始计算防御参数
-	defender.terrainDefend = 0--地形防御力(%)
-	if defender.corp.corpType~='AirForce' then
-		defender.terrainDefend = defender.terrainAttrib.defendLV * defender.unit:presentHP()--地形防御力(%)=地形防御等级*当前表现hp
+--损伤表
+MainWeapon={
+	--陆军
+	Mech={TransportTruck=55,SupplyTruck=75,APC=75,
+		Recon=85,Flare=80,Artillery=70,AntiAirArtillery=65,Rockets=85,Missiles=85,
+		Tank=55,AmphibiousTank=40,MiddleTank=15,NeoTank=15,MegaTank=5,AntiAir=65,AntiTank=55,
+		PipeRunner=55},
+	Artillery={Infantry=90,Mech=85,Bike=85,TransportTruck=85,SupplyTruck=95,APC=70,
+		Recon=80,Flare=75,Artillery=75,AntiAirArtillery=65,Rockets=80,Missiles=80,
+		Tank=70,AmphibiousTank=60,MiddleTank=45,NeoTank=40,MegaTank=15,AntiAir=75,AntiTank=55,
+		PipeRunner=70,Lander=55,BlackBoat=55,GunBoat=100,
+		BattleShip=40,Destroyer=50,Cruiser=50,Frigate=60,Submarine=60,Carrier=45},
+	AntiAirArtillery={TransportCopter=95,BattleCopter=90,AntiSubCopter=92,TransportPlane=80,
+		Duster=70,SeaPlane=70,Fighter=55,Bomber=75,Stealth=65,
+		BlackBomb=120},
+	Rockets={Infantry=95,Mech=90,Bike=90,TransportTruck=90,SupplyTruck=95,APC=80,
+		Recon=90,Flare=85,Artillery=80,AntiAirArtillery=70,Rockets=85,Missiles=90,
+		Tank=80,AmphibiousTank=70,MiddleTank=55,NeoTank=50,MegaTank=25,AntiAir=85,AntiTank=65,
+		PipeRunner=80,Lander=60,BlackBoat=60,GunBoat=105,
+		BattleShip=55,Destroyer=70,Cruiser=60,Frigate=72,Submarine=85,Carrier=60},
+	Missiles={TransportCopter=115,BattleCopter=115,AntiSubCopter=115,TransportPlane=100,
+		Duster=100,SeaPlane=100,Fighter=100,Bomber=100,Stealth=100,
+		BlackBomb=120},
+	Tank={TransportTruck=75,SupplyTruck=90,APC=70,
+		Recon=85,Flare=80,Artillery=70,AntiAirArtillery=70,Rockets=85,Missiles=85,
+		Tank=55,AmphibiousTank=40,MiddleTank=15,NeoTank=15,MegaTank=10,AntiAir=65,AntiTank=30,
+		PipeRunner=50,Lander=10,BlackBoat=10,GunBoat=55,
+		BattleShip=1,Destroyer=2,Cruiser=5,Frigate=6,Submarine=1,Carrier=1},
+	AmphibiousTank={TransportTruck=85,SupplyTruck=95,APC=70,
+		Recon=92,Flare=90,Artillery=85,AntiAirArtillery=81,Rockets=85,Missiles=85,
+		Tank=65,AmphibiousTank=55,MiddleTank=30,NeoTank=25,MegaTank=13,AntiAir=80,AntiTank=33,
+		PipeRunner=60,Lander=20,BlackBoat=20,GunBoat=56,
+		BattleShip=4,Destroyer=5,Cruiser=15,Frigate=16,Submarine=4,Carrier=4},
+	MiddleTank={TransportTruck=100,SupplyTruck=100,APC=105,
+		Recon=105,Flare=105,Artillery=105,AntiAirArtillery=100,Rockets=105,Missiles=105,
+		Tank=85,AmphibiousTank=75,MiddleTank=55,NeoTank=45,MegaTank=20,AntiAir=105,AntiTank=40,
+		PipeRunner=80,Lander=35,BlackBoat=35,GunBoat=65,
+		BattleShip=10,Destroyer=13,Cruiser=30,Frigate=36,Submarine=10,Carrier=10},
+	NeoTank={TransportTruck=120,SupplyTruck=125,APC=125,
+		Recon=125,Flare=115,Artillery=115,AntiAirArtillery=115,Rockets=125,Missiles=125,
+		Tank=105,AmphibiousTank=90,MiddleTank=75,NeoTank=55,MegaTank=35,AntiAir=115,AntiTank=50,
+		PipeRunner=105,Lander=40,BlackBoat=40,GunBoat=95,
+		BattleShip=15,Destroyer=20,Cruiser=30,Frigate=40,Submarine=15,Carrier=15},
+	MegaTank={TransportTruck=195,SupplyTruck=200,APC=195,
+		Recon=195,Flare=192,Artillery=195,AntiAirArtillery=192,Rockets=195,Missiles=195,
+		Tank=180,AmphibiousTank=155,MiddleTank=125,NeoTank=115,MegaTank=65,AntiAir=195,AntiTank=65,
+		PipeRunner=180,Lander=75,BlackBoat=105,GunBoat=135,
+		BattleShip=45,Destroyer=56,Cruiser=65,Frigate=78,Submarine=45,Carrier=45},
+	AntiAir={Infantry=105,Mech=105,Bike=105,TransportTruck=65,SupplyTruck=80,APC=50,
+		Recon=60,Flare=50,Artillery=50,AntiAirArtillery=55,Rockets=55,Missiles=55,
+		Tank=25,AmphibiousTank=20,MiddleTank=10,NeoTank=5,MegaTank=1,AntiAir=45,AntiTank=25,
+		PipeRunner=25,TransportCopter=105,BattleCopter=105,AntiSubCopter=105,TransportPlane=80,
+		Duster=75,SeaPlane=75,Fighter=65,Bomber=75,Stealth=75,
+		BlackBomb=120},
+	AntiTank={Infantry=75,Mech=65,Bike=65,TransportTruck=70,SupplyTruck=75,APC=65,
+		Recon=75,Flare=75,Artillery=65,AntiAirArtillery=60,Rockets=70,Missiles=70,
+		Tank=75,AmphibiousTank=65,MiddleTank=55,NeoTank=50,MegaTank=40,AntiAir=75,AntiTank=55,
+		PipeRunner=64,TransportCopter=55,BattleCopter=45,AntiSubCopter=48},
+	PipeRunner={
+		Infantry=95,Mech=90,Bike=85,TransportTruck=85,SupplyTruck=90,APC=80,
+		Recon=90,Flare=85,Artillery=80,AntiAirArtillery=80,Rockets=85,Missiles=90,
+		Tank=80,AmphibiousTank=70,MiddleTank=55,NeoTank=50,MegaTank=25,AntiAir=85,AntiTank=80,
+		PipeRunner=80,TransportCopter=105,BattleCopter=105,AntiSubCopter=105,TransportPlane=80,
+		Duster=70,SeaPlane=70,Fighter=65,Bomber=75,Stealth=75,
+		BlackBomb=120,Lander=60,BlackBoat=60,GunBoat=100,
+		BattleShip=55,Destroyer=50,Cruiser=60,Frigate=36,Submarine=85,Carrier=60},
+	--空军
+	BattleCopter={TransportTruck=60,SupplyTruck=65,APC=60,
+		Recon=55,Flare=75,Artillery=65,AntiAirArtillery=35,Rockets=65,Missiles=65,
+		Tank=55,AmphibiousTank=45,MiddleTank=25,NeoTank=20,MegaTank=10,AntiAir=25,AntiTank=25,
+		PipeRunner=25,Lander=25,BlackBoat=25,GunBoat=85,
+		BattleShip=25,Destroyer=31,Cruiser=25,Frigate=30,Submarine=25,Carrier=25},
+	AntiSubCopter={TransportTruck=48,SupplyTruck=52,APC=48,
+		Recon=44,Flare=60,Artillery=52,AntiAirArtillery=48,Rockets=52,Missiles=52,
+		Tank=44,AmphibiousTank=36,MiddleTank=20,NeoTank=16,MegaTank=8,AntiAir=20,AntiTank=20,
+		PipeRunner=20,Lander=30,BlackBoat=30,GunBoat=102,
+		BattleShip=30,Destroyer=36,Cruiser=30,Frigate=30,Submarine=50,Carrier=30},
+	Duster={Infantry=55,Mech=45,Bike=45,TransportTruck=15,SupplyTruck=20,APC=15,
+		Recon=18,Flare=15,Artillery=15,AntiAirArtillery=10,Rockets=20,Missiles=20,
+		Tank=8,AmphibiousTank=5,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=5,AntiTank=5,
+		PipeRunner=12,TransportCopter=90,BattleCopter=75,AntiSubCopter=80,TransportPlane=50,
+		Duster=50,SeaPlane=45,Fighter=40,Bomber=45,Stealth=42,
+		BlackBomb=60},
+	SeaPlane={Infantry=90,Mech=85,Bike=85,TransportTruck=70,SupplyTruck=70,APC=70,
+		Recon=70,Flare=65,Artillery=60,AntiAirArtillery=45,Rockets=70,Missiles=70,
+		Tank=60,AmphibiousTank=60,MiddleTank=55,NeoTank=45,MegaTank=12,AntiAir=35,AntiTank=50,
+		PipeRunner=65,TransportCopter=92,BattleCopter=80,AntiSubCopter=85,TransportPlane=60,
+		Duster=55,SeaPlane=55,Fighter=42,Bomber=55,Stealth=48,
+		BlackBomb=70,Lander=55,BlackBoat=55,GunBoat=95,
+		BattleShip=40,Destroyer=50,Cruiser=30,Frigate=36,Submarine=48,Carrier=40},
+	Stealth={Infantry=90,Mech=90,Bike=90,TransportTruck=85,SupplyTruck=85,APC=85,
+		Recon=85,Flare=80,Artillery=75,AntiAirArtillery=60,Rockets=85,Missiles=85,
+		Tank=75,AmphibiousTank=75,MiddleTank=70,NeoTank=60,MegaTank=15,AntiAir=50,AntiTank=65,
+		PipeRunner=80,TransportCopter=95,BattleCopter=85,AntiSubCopter=90,TransportPlane=75,
+		Duster=60,SeaPlane=65,Fighter=45,Bomber=70,Stealth=55,
+		BlackBomb=120,Lander=65,BlackBoat=65,GunBoat=105,
+		BattleShip=45,Destroyer=56,Cruiser=35,Frigate=42,Submarine=55,Carrier=45},
+	Fighter={TransportCopter=120,BattleCopter=120,AntiSubCopter=120,TransportPlane=110,
+		Duster=90,SeaPlane=95,Fighter=55,Bomber=100,Stealth=85,
+		BlackBomb=120},
+	Bomber={Infantry=110,Mech=110,Bike=110,TransportTruck=100,SupplyTruck=105,APC=105,
+		Recon=105,Flare=105,Artillery=105,AntiAirArtillery=90,Rockets=105,Missiles=105,
+		Tank=105,AmphibiousTank=100,MiddleTank=95,NeoTank=90,MegaTank=35,AntiAir=95,AntiTank=80,
+		PipeRunner=105,Lander=95,BlackBoat=75,GunBoat=120,
+		BattleShip=75,Destroyer=95,Cruiser=50,Frigate=60,Submarine=95,Carrier=105},
+	--海军
+	GunBoat={Lander=55,BlackBoat=65,GunBoat=75,
+		BattleShip=40,Destroyer=50,Cruiser=40,Frigate=48,Submarine=40,Carrier=40},
+	BattleShip={Infantry=95,Mech=90,Bike=85,TransportTruck=85,SupplyTruck=90,APC=80,
+		Recon=90,Flare=80,Artillery=80,AntiAirArtillery=70,Rockets=85,Missiles=90,
+		Tank=80,AmphibiousTank=70,MiddleTank=55,NeoTank=50,MegaTank=25,AntiAir=85,AntiTank=65,
+		PipeRunner=70,Lander=95,BlackBoat=95,GunBoat=110,
+		BattleShip=50,Destroyer=63,Cruiser=95,Frigate=114,Submarine=95,Carrier=60},
+	Destroyer={Infantry=67,Mech=63,Bike=60,TransportTruck=60,SupplyTruck=63,APC=56,
+		Recon=63,Flare=56,Artillery=56,AntiAirArtillery=49,Rockets=60,Missiles=63,
+		Tank=56,AmphibiousTank=49,MiddleTank=39,NeoTank=35,MegaTank=18,AntiAir=60,AntiTank=46,
+		PipeRunner=49,Lander=67,BlackBoat=67,GunBoat=77,
+		BattleShip=35,Destroyer=44,Cruiser=67,Frigate=80,Submarine=67,Carrier=42},
+	Cruiser={Lander=25,BlackBoat=25,GunBoat=70,
+		BattleShip=5,Destroyer=10,Cruiser=25,Frigate=30,Submarine=90,Carrier=5},
+	Frigate={Lander=67,BlackBoat=67,GunBoat=84,
+		BattleShip=46,Destroyer=56,Cruiser=18,Frigate=21,Submarine=39,Carrier=53},
+	Submarine={Lander=95,BlackBoat=95,GunBoat=120,
+		BattleShip=65,Destroyer=80,Cruiser=25,Frigate=30,Submarine=55,Carrier=75},
+	Carrier={TransportCopter=120,BattleCopter=120,AntiSubCopter=120,TransportPlane=105,
+		Duster=110,SeaPlane=110,Fighter=105,Bomber=105,Stealth=105,
+		BlackBomb=120},
+}
+SubWeapon={
+	Infantry={Infantry=55,Mech=45,Bike=45,TransportTruck=7,SupplyTruck=25,APC=14,
+		Recon=12,Flare=10,Artillery=15,AntiAirArtillery=15,Rockets=25,Missiles=25,
+		Tank=5,AmphibiousTank=3,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=5,AntiTank=30,
+		TransportCopter=30,BattleCopter=7,AntiSubCopter=10,
+		PipeRunner=5},
+	Mech={Infantry=65,Mech=55,Bike=55,TransportTruck=10,SupplyTruck=35,APC=20,
+		Recon=18,Flare=15,Artillery=32,AntiAirArtillery=32,Rockets=35,Missiles=35,
+		Tank=6,AmphibiousTank=4,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=6,AntiTank=35,
+		TransportCopter=35,BattleCopter=9,AntiSubCopter=13,
+		PipeRunner=6},
+	Bike={Infantry=65,Mech=55,Bike=55,TransportTruck=10,SupplyTruck=35,APC=20,
+		Recon=18,Flare=15,Artillery=24,AntiAirArtillery=24,Rockets=35,Missiles=35,
+		Tank=7,AmphibiousTank=5,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=7,AntiTank=35,
+		TransportCopter=35,BattleCopter=11,AntiSubCopter=15,
+		PipeRunner=6},
+	Recon={Infantry=70,Mech=65,Bike=65,TransportTruck=10,SupplyTruck=28,APC=45,
+		Recon=35,Flare=30,Artillery=45,AntiAirArtillery=27,Rockets=55,Missiles=28,
+		Tank=6,AmphibiousTank=4,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=4,AntiTank=25,
+		TransportCopter=35,BattleCopter=10,AntiSubCopter=15,
+		PipeRunner=6},
+	TransportTruck={Infantry=70,Mech=65,Bike=60,TransportTruck=10,SupplyTruck=28,APC=25,
+		Recon=24,Flare=20,Artillery=27,AntiAirArtillery=27,Rockets=28,Missiles=28,
+		Tank=6,AmphibiousTank=4,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=4,AntiTank=20,
+		TransportCopter=25,BattleCopter=9,AntiSubCopter=13,
+		PipeRunner=6},
+	Flare={Infantry=80,Mech=70,Bike=70,TransportTruck=20,SupplyTruck=55,APC=45,
+		Recon=60,Flare=50,Artillery=45,AntiAirArtillery=40,Rockets=55,Missiles=55,
+		Tank=10,AmphibiousTank=7,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=45,AntiTank=25,
+		TransportCopter=35,BattleCopter=18,AntiSubCopter=27,
+		PipeRunner=7},
+	Tank={Infantry=75,Mech=70,Bike=70,TransportTruck=10,SupplyTruck=30,APC=45,
+		Recon=40,Flare=35,Artillery=45,AntiAirArtillery=29,Rockets=55,Missiles=30,
+		Tank=6,AmphibiousTank=4,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=6,AntiTank=1,
+		TransportCopter=40,BattleCopter=10,AntiSubCopter=15,
+		PipeRunner=6},
+	AmphibiousTank={Infantry=85,Mech=75,Bike=75,TransportTruck=12,SupplyTruck=32,APC=45,
+		Recon=42,Flare=37,Artillery=45,AntiAirArtillery=31,Rockets=55,Missiles=32,
+		Tank=7,AmphibiousTank=5,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=6,AntiTank=1,
+		TransportCopter=42,BattleCopter=11,AntiSubCopter=16,
+		PipeRunner=7},
+	MiddleTank={Infantry=105,Mech=95,Bike=95,TransportTruck=15,SupplyTruck=35,APC=45,
+		Recon=45,Flare=40,Artillery=45,AntiAirArtillery=34,Rockets=55,Missiles=35,
+		Tank=8,AmphibiousTank=6,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=7,AntiTank=1,
+		TransportCopter=45,BattleCopter=12,AntiSubCopter=18,
+		PipeRunner=8},
+	NeoTank={Infantry=125,Mech=115,Bike=105,TransportTruck=35,SupplyTruck=55,APC=65,
+		Recon=65,Flare=60,Artillery=65,AntiAirArtillery=54,Rockets=75,Missiles=55,
+		Tank=10,AmphibiousTank=7,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=17,AntiTank=2,
+		TransportCopter=55,BattleCopter=22,AntiSubCopter=33,
+		PipeRunner=10},
+	MegaTank={Infantry=135,Mech=125,Bike=115,TransportTruck=45,SupplyTruck=65,APC=65,
+		Recon=65,Flare=65,Artillery=65,AntiAirArtillery=60,Rockets=75,Missiles=55,
+		Tank=10,AmphibiousTank=7,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=17,AntiTank=3,
+		TransportCopter=55,BattleCopter=22,AntiSubCopter=33,
+		PipeRunner=10},
+	BattleCopter={Infantry=75,Mech=75,Bike=65,TransportTruck=10,SupplyTruck=40,APC=20,
+		Recon=30,Flare=30,Artillery=25,AntiAirArtillery=25,Rockets=35,Missiles=35,
+		Tank=6,AmphibiousTank=4,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=6,AntiTank=1,
+		TransportCopter=95,BattleCopter=65,AntiSubCopter=75,
+		PipeRunner=6},
+	AntiSubCopter={Infantry=60,Mech=60,Bike=48,TransportTruck=8,SupplyTruck=32,APC=16,
+		Recon=24,Flare=24,Artillery=20,AntiAirArtillery=20,Rockets=28,Missiles=28,
+		Tank=5,AmphibiousTank=3,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=5,AntiTank=1,
+		TransportCopter=76,BattleCopter=52,AntiSubCopter=60,
+		PipeRunner=6},
+	Cruiser={TransportCopter=105,BattleCopter=105,AntiSubCopter=105,TransportPlane=100,
+		Duster=100,SeaPlane=100,Fighter=85,Bomber=100,Stealth=100,
+		BlackBomb=120},
+	Frigate={Infantry=70,Mech=70,Bike=70,TransportTruck=46,SupplyTruck=56,APC=35,
+		Recon=42,Flare=35,Artillery=35,AntiAirArtillery=39,Rockets=39,Missiles=39,
+		Tank=18,AmphibiousTank=16,MiddleTank=7,NeoTank=4,MegaTank=1,AntiAir=32,AntiTank=18,
+		PipeRunner=18,TransportCopter=70,BattleCopter=70,AntiSubCopter=70,TransportPlane=70,
+		Duster=70,SeaPlane=70,Fighter=60,Bomber=70,Stealth=70,
+		BlackBomb=84},
+}
+--查询函数
+function corpDamage(attackerName,defenderName,weaponIndex)
+	--确定列表
+	local lst
+	if weaponIndex == 0 then lst = MainWeapon end
+	if weaponIndex == 1 then lst = SubWeapon end
+	if not lst then return end
+	--开始查询
+	local atk = lst[attackerName]
+	if atk then
+		return atk[defenderName]
 	end
-	defender.defendPower = defender.terrainDefend--实际防御力(%)
-	--开始计算理论损伤
-	attacker.finalDamage = math.floor(attacker.attackPower * (1 - defender.defendPower / 100))--理论损伤(%)=实际攻击力(%) * (1-实际防御力(%))
-	--理论价值损失
+	return -1
 end
-
-function doAttack(atker,wpn,dfder)
-	caculateDamage(atker,wpn,dfder)--理论计算
-	--开始攻击
-	math.randomseed(os.time())
-	attacker.attackPower = attacker.attackPower + math.random(0,attacker.unit:presentHP()-1)--幸运修正
-	attacker.finalDamage = math.floor(attacker.attackPower * (1 - defender.defendPower / 100))--实际损伤
-	defender.finalHP = defender.unit:healthPower() - attacker.finalDamage--计算剩余hp
-	if defender.finalHP < 0 then defender.finalHP = 0 end
-	defender.valueLost = defender.corp.price * (defender.healthPower-defender.finalHP) / 100--价值损失
-	defender.unit.healthPower = defender.finalHP
-end
-
-function doAttack_and_CounterAttack(atker,wpn,dfder)
-	doAttack(atker,wpn,dfder)
-	doAttack(dfder,wpn,atker)
-end
-
---[[static void caculate_conflict( &attacker, &defender,bool caculateLuckDamage=true);
-static bool isCounterAttackable(const  &attacker,const  &defender);
-
-	//Base data
-	int terrainType;
-	int amount_InstructionTower;
-
-	//Derived data
-	int corpDamage;
-	int terrainDefendLevel;
-	int towerAttack;
-	int terrainDefend;
-	int attackPower;
-	int defendPower;
-	int finalDamage;
-	int finalHP;
-	int valueLost;
-
-	bool caculate_Attack( &defender);
-};
-
-():
-	Unit(0),
-	co(0),
-	powerStatus(Commander::NoPower),
-	//weatherType(Weather::NormalWeather),
-	terrainType(0),
-	amount_InstructionTower(0)
-{
-	corpDamage=-1;
-	coAttackPercent=0;
-	coDefendPercent=0;
-	coLuckyDamage_Min=0;
-	coLuckyDamage=0;
-	coLuckyDamage_Max=10;
-	towerAttack=0;
-	terrainDefendLevel=0;
-	terrainDefend=0;
-	attackPower=0;
-	defendPower=0;
-	finalDamage=0;
-	finalHP=healthPower;
-	valueLost=0;
-}]]
-
---[[function caculate_conflict( &attacker, &defender,bool caculateLuckDamage)
-{
-	//caculate
-	if(caculateLuckDamage)
-	{
-		srand(time(NULL));
-		attacker.caculate_derivedData_coLuckDamage_random();
-		defender.caculate_derivedData_coLuckDamage_random();
-	}
-	else
-	{
-		attacker.caculate_derivedData_coLuckDamage_limit();
-		defender.caculate_derivedData_coLuckDamage_limit();
-	}
-
-	//check who attack first
-	bool counterAttackFirst=false;
-	/*if(defender.co==Commander::Sonja&&defender.powerStatus==Commander::SuperPower)
-	{
-		counterAttackFirst=true;
-	}*/
-
-	int atkHP=attacker.healthPower;
-	int defHP=defender.healthPower;
-	//Counter Attack
-	if(counterAttackFirst)
-	{
-		if(isCounterAttackable(attacker,defender))
-		{
-			//cout<<"Counter attack first"<<endl;cout.flush();
-			defender.caculate_Attack(attacker);
-			if(attacker.finalHP==0)return;
-		}
-	}
-	//attack
-	//cout<<"Attack"<<endl;cout.flush();
-	attacker.healthPower=attacker.finalHP;
-	attacker.caculate_Attack(defender);
-	attacker.healthPower=atkHP;//recover
-	if(defender.finalHP==0)return;
-	//Counter Attack
-	if(!counterAttackFirst)
-	{
-		if(isCounterAttackable(attacker,defender))
-		{
-			//cout<<"Counter attack"<<endl;cout.flush();
-			defender.healthPower=defender.finalHP;
-			defender.caculate_Attack(attacker);
-			defender.healthPower=defHP;//recover
-			if(attacker.finalHP==0)return;
-		}
-	}
-}
-
-function isCounterAttackable(const  &attacker, const  &defender)
-{
-	/*bool conditionDirectAttack=
-			defender.corp->isDirectAttack()&&
-			(attacker.coordinate-defender.coordinate).manhattanLength()==1;
-	bool conditionAntiTank=
-			(defender.corpType==Corp::AntiTank||defender.corpType==Corp::AntiAirArtillery)&&
-			(attacker.coordinate-defender.coordinate).manhattanLength()<=
-			CorpList::defaultCorpsList.iterate(defender.corpType)->mainWeapon.maxRange+
-			Commander::attackRangeMax(defender.co,(Corp::CorpType)defender.corpType,defender.powerStatus);
-	return conditionDirectAttack||conditionAntiTank;*/
-	return true;
-}
-
-function statusAppend()const{return powerStatus!=Commander::NoPower;}
-
-function caculate_derivedData()
-{
-	
-}
-function caculate_derivedData_coLuckDamage_random()
-{
-	if(coLuckyDamage_Min<coLuckyDamage_Max)
-	{
-		int value=rand()%(coLuckyDamage_Max-coLuckyDamage_Min);
-		coLuckyDamage=coLuckyDamage_Min=value;
-	}
-	else if(coLuckyDamage_Min=coLuckyDamage_Max)
-	{
-		coLuckyDamage=coLuckyDamage_Min;
-	}
-}
-function caculate_derivedData_coLuckDamage_limit()
-{
-	if(coLuckyDamage>=coLuckyDamage_Max)coLuckyDamage=coLuckyDamage_Max-1;
-	if(coLuckyDamage<coLuckyDamage_Min)coLuckyDamage=coLuckyDamage_Min;
-}
-
-//attack!!!
-function caculate_Attack( &defender)
-{
-	/*int weaponCount=CorpList::defaultCorpsList.iterate(corpType)->weapons.size();
-	bool hasWeapon=false;
-	for(int i=0;i<weaponCount;++i)
-	{
-		hasWeapon=CorpList::defaultCorpsList.damageValue(corpType,defender.corpType,i,corpDamage);
-		if(hasWeapon)break;
-	}
-	if(!hasWeapon)
-	{
-		corpDamage=-1;
-		defender.finalHP=defender.healthPower;
-		defender.valueLost=0;
-		return false;
-	}
-	//attack power
-	attackPower=
-			(corpDamage*(100+coAttackPercent+(statusAppend()?10:0)+
-			towerAttack)+100*coLuckyDamage)*presentHP()/1000;
-	attackPower=max(attackPower,0);//make sure attack power >= 0
-
-	//defend power
-	defender.terrainDefend=defender.terrainDefendLevel*defender.presentHP();
-	defender.defendPower=
-			defender.coDefendPercent+
-			//(Corp::isAirForce(defender.corpType)?0:defender.terrainDefend)+
-			(defender.statusAppend()?10:0);
-
-	//attack!!!!
-	finalDamage=attackPower*(100-defender.defendPower)/100;//AWDS version
-	//finalDamage=attackPower/(100+def.defendPower);//AWDOR version
-	finalDamage=max(finalDamage,0);
-
-	defender.finalHP=defender.healthPower-finalDamage;
-	defender.finalHP=max(defender.finalHP,0);
-
-	//value lost
-	_List_const_iterator<Corp> corp=CorpList::defaultCorpsList.iterate(defender.corpType);
-	/*int buildPrice=Commander::builtPrice(defender.co,defender.corpType,defender.powerStatus);
-	defender.valueLost=corp->price*(100+buildPrice)*(defender.healthPower-defender.finalHP)/10000;*/
-	return true;
-}
-function Campaign::execute_Fire()
-{
-	/*//read data
-	input(*selectedUnit,attacker);
-	input(*selectedTarget,defender);
-	//do!!!
-	caculate_conflict(attacker,defender);
-	//write data
-	selectedUnit->healthPower=attacker.finalHP;
-	selectedTarget->healthPower=defender.finalHP;
-	if(selectedUnit->healthPower==0)battleField.deleteUnit(selectedUnit);
-	if(selectedTarget->healthPower==0)battleField.deleteUnit(selectedTarget);*/
-	return true;
-}]]
