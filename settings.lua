@@ -16,6 +16,7 @@ dataWeathers="datas/Weathers.lua"
 ruleMove="codes/movement.lua"--移动规则
 ruleDamage="codes/damage.lua"--损伤数据
 ruleLoadUnit="codes/loadUnit.lua"--装载部队规则
+ruleTerrainChange="codes/terrainChange.lua"--地形变换规则
 
 --纹理加载路径
 imagesPathCorps="images/Corps"--兵种

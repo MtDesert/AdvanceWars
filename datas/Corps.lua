@@ -254,4 +254,9 @@ Corps={
 	weapons={
 		{name="Cannon",minRange=2,maxRange=5,ammunitionMax=9}},
 	},
+	{name="Oozium",translate="老泥",corpType='LandForce',price=20000,vision=4,
+	move={movement=9,moveType="Pipe",gasMax=50},
+	weapons={
+		{name="Cannon",minRange=2,maxRange=5,ammunitionMax=9}},
+	},
 }
