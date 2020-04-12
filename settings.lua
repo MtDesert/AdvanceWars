@@ -16,7 +16,7 @@ dataWeathers="datas/Weathers.lua"
 ruleMove="codes/movement.lua"--移动规则
 ruleDamage="codes/damage.lua"--损伤数据
 ruleLoadUnit="codes/loadUnit.lua"--装载部队规则
-ruleTerrainChange="codes/terrainChange.lua"--地形变换规则
+ruleBuild="codes/build.lua"--建造规则
 
 --纹理加载路径
 imagesPathCorps="images/Corps"--兵种
@@ -29,4 +29,4 @@ imagesPathCorpMenu="images/Icons"
 imagesPathNumbers="images/Numbers"--数字
 
 mapsPath="maps/aw1/FieldTraining"
-scenarioScriptsPath="scripts"
+scenarioScriptsPath="scripts/AdvanceWars"

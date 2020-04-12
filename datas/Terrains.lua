@@ -38,7 +38,7 @@ Terrains={
 	{name="Radar",translate="雷达",defendLV=2,capturable=true,note="可以探测周围环境的雷达站,在雾战时候可观测雷达周边是否有不明实体接近"},
 	{name="Lab",translate="研究所",defendLV=3,capturable=true,note="研究特定兵器的地方"},
 	{name="HQ",translate="总部",defendLV=4,capturable=true,hasIncome=true,note="总指挥整个部队的地方"},
-	{name="Silo",translate="火箭井",defendLV=4,capturable=true,note="带有火箭的发射井,火箭发射后可以会变成空火箭井"},
+	{name="Silo",translate="火箭井",defendLV=4,capturable=true,terrainAfterLanuch="SiloEmpty",note="带有火箭的发射井,火箭发射后可以会变成空火箭井"},
 	{name="SiloEmpty",translate="火箭井(空)",defendLV=3,capturable=true,note="发射火箭后的发射井"},
 	--管道
 	{name="Pipe",translate="管道",defendLV=0,has4direction=true,tileType="Pipe"},

@@ -13,7 +13,9 @@
 武器表weapons,表结构(非必须),存放若干武器(一般来说只需要主武器和副武器)
 武器结构如下{
 	武器名name,字符串,表示名字
-	最大载弹量ammunitionMax,正整数,
+	最小射程minRange最大射程maxRange,表明武器可打击的范围
+	最大载弹量ammunitionMax,正整数,耗尽后只能换备用武器来攻击
+	闪光范围flaraRange,闪光弹专用,表明闪光后能照亮的范围
 }
 capturable,布尔型,能否占领,只对据点有效
 suppliable,布尔型,能否补给
@@ -42,6 +44,7 @@ Corps={
 	{name="Bike",translate="摩托兵",corpType='LandForce',price=2500,vision=2,
 	move={movement=3,moveType="TireB",gasMax=70},
 	weapons={
+		{name=""},
 		{name="MachineGun"}},
 	capturable=true},
 
@@ -51,25 +54,28 @@ Corps={
 
 	{name="APC",translate="装甲车",corpType='LandForce',price=5000,vision=1,
 	move={movement=6,moveType="Tread",gasMax=70},
-	suppliable=true},
+	suppliable=true,buildable=true},
 
 	{name="Recon",translate="侦察车",corpType='LandForce',price=4000,vision=5,
 	move={movement=8,moveType="Tire",gasMax=80},
 	weapons={
+		{name=""},
 		{name="MachineGun"}},
 	},
 
 	{name="TransportTruck",translate="运输卡车",corpType='LandForce',price=5000,vision=2,
 	move={movement=7,moveType="Tire",gasMax=70},
 	weapons={
+		{name=""},
 		{name="MachineGun"}},
 	},
 
 	{name="Flare",translate="照明车",corpType='LandForce',price=5500,vision=3,
 	move={movement=5,moveType="Tread",gasMax=70},
 	weapons={
+		{name="FlareBomb",flareRange=2,minRange=0,maxRange=5,ammunitionMax=3},
 		{name="MachineGun"}},
-	flarable=true,ammunitionMax=3},
+	},
 
 	{name="Artillery",translate="大炮",corpType='LandForce',price=6000,vision=1,
 	move={movement=5,moveType="Tread",gasMax=50},

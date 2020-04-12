@@ -1,5 +1,5 @@
 --损伤表
-MainWeapon={
+local MainWeapon={
 	--陆军
 	Mech={TransportTruck=55,SupplyTruck=75,APC=75,
 		Recon=85,Flare=80,Artillery=70,AntiAirArtillery=65,Rockets=85,Missiles=85,
@@ -126,7 +126,7 @@ MainWeapon={
 		Duster=110,SeaPlane=110,Fighter=105,Bomber=105,Stealth=105,
 		BlackBomb=120},
 }
-SubWeapon={
+local SubWeapon={
 	Infantry={Infantry=55,Mech=45,Bike=45,TransportTruck=7,SupplyTruck=25,APC=14,
 		Recon=12,Flare=10,Artillery=15,AntiAirArtillery=15,Rockets=25,Missiles=25,
 		Tank=5,AmphibiousTank=3,MiddleTank=1,NeoTank=1,MegaTank=1,AntiAir=5,AntiTank=30,
