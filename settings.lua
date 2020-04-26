@@ -1,3 +1,7 @@
+--系统
+windowSize={800,600}
+resolution={800,600}
+
 --语言文件
 language="chinese"
 
