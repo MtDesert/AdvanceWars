@@ -21,6 +21,7 @@ ruleMove="codes/movement.lua"--移动规则
 ruleDamage="codes/damage.lua"--损伤数据
 ruleLoadUnit="codes/loadUnit.lua"--装载部队规则
 ruleBuild="codes/build.lua"--建造规则
+ruleCommanders="codes/commanders.lua"--指挥官规则
 
 --纹理加载路径
 imagesPathCorps="images/Corps"--兵种

@@ -30,7 +30,7 @@ Corps={
 	{name="Infantry",translate="步兵",corpType='LandForce',price=1000,vision=2,
 	move={movement=3,moveType="Foot",gasMax=99},
 	weapons={
-		{name=""},
+		{name=""},--无主武器
 		{name="MachineGun"}},
 	capturable=true},
 
@@ -149,18 +149,18 @@ Corps={
 	},
 
 	{name="TransportCopter",translate="运输直升机",corpType='AirForce',price=5000,vision=2,
-	move={movement=6,moveType="Heli",gasMax=99},
+	move={movement=6,moveType="Copter",gasMax=99},
 	},
 
 	{name="BattleCopter",translate="武装直升机",corpType='AirForce',price=9000,vision=3,
-	move={movement=6,moveType="Heli",gasMax=99},
+	move={movement=6,moveType="Copter",gasMax=99},
 	weapons={
 		{name="Missile",ammunitionMax=6},
 		{name="MachineGun"}}
 	},
 
 	{name="AntiSubCopter",translate="反潜直升机",corpType='AirForce',price=12000,vision=3,
-	move={movement=5,moveType="Heli",gasMax=80},
+	move={movement=5,moveType="Copter",gasMax=80},
 	weapons={
 		{name="AntiSub Missile",ammunitionMax=6},
 		{name="MachineGun"}}

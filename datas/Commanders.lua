@@ -75,7 +75,7 @@ Commanders={
 			{selfHPplus=20}
 		}},
 		{name="Hyper Upgrade",translate="超级更新",energySlot=3,features={
-			{selfHPplus=50,attack=10,movement=1}
+			{selfHPplus=50,attack=20,movement=1}
 		}},
 	},
 	author="Offical"},
@@ -115,12 +115,12 @@ Commanders={
 			{corpType="PowerlessCarrier",movement=1}
 		}},
 		{name="Double Time",translate="急行军",energySlot=3,features={
-			{corpType="Capturable",attack=50,movement=1,moveTerrainCost1=true,captureSpeed=50},
+			{corpType="Capturable",attack=50,defence=5,movement=1,moveTerrainCost1=true,captureSpeed=50},
 			{corpType="DirectAttack_NotCapturable",attack=-10},
 			{corpType="PowerlessCarrier",movement=1}
 		}},
 		{name="Victory March",translate="胜利行军",energySlot=5,features={
-			{corpType="Capturable",attack=80,movement=2,moveTerrainCost1=true,captureSpeed=2000},
+			{corpType="Capturable",attack=80,defence=10,movement=2,moveTerrainCost1=true,captureSpeed=2000},
 			{corpType="DirectAttack_NotCapturable",attack=-10},
 			{corpType="PowerlessCarrier",movement=1}
 		}},
@@ -140,7 +140,7 @@ Commanders={
 		{name="Barter",translate="讨价还价",energySlot=3,features={
 			{price=-50}
 		}},
-		{name="Merchant Union",translate="商业联盟",energySlot=3,feature={
+		{name="Merchant Union",translate="商业联盟",energySlot=3,features={
 			{price=-50,CityBuild="LandForce"}
 		}},
 	},
@@ -163,7 +163,7 @@ Commanders={
 		{name="Block Rock",translate="滚石",energySlot=3,features={
 			{terrainType="Plain",attack=40},
 			{corpType="LandForce_IndirectAttack",attackRangeMax=1},
-			{corpType="LandForce_Vehicle",movement=2}
+			{corpType="Vehicle",movement=2}
 		}},
 	},
 	author="Offical"},
@@ -207,6 +207,7 @@ Commanders={
 		}},
 		{name="Winter Fury",translate="寒冬之怒",energySlot=4,features={
 			{weatherType="Snowy",attack=20,weatherChange="Blizzard",enemyHPminus=20},
+			{weatherType="Rainy",fuelCostMultiply=2}
 		}},
 	},
 	author="Offical"},
@@ -277,18 +278,16 @@ Commanders={
 	d2d="空军攻击+20%,日耗油-2;海军攻击-10%",
 	powers={
 		{name="AirForce",translate="空军",features={
-			{corpType="AirForce",attack=20,defence=10,fuelConsumePerDay=-2},
+			{corpType="AirForce",attack=20,fuelConsumePerDay=-2},
 			{corpType="NavyForce",attack=-20}
 		}},
 		{name="Lightning Drive",translate="闪电驱动",energySlot=3,features={
-			{corpType="AirForce",attack=-40,fuelConsumePerDay=-2},
-			{corpType="LandForce_NotCapturable",attack=-50},
-			{corpType="NavyForce",attack=-50},
-			{corpType="NotCapturable",moveAgain=true},
+			{corpType="AirForce",attack=30,defence=10,fuelConsumePerDay=-2},
+			{corpType="NavyForce",attack=-15},
 		}},
 		{name="Lightning Strike",translate="闪电攻击",energySlot=6,features={
-			{corpType="AirForce",attack=20,defence=10,fuelConsumePerDay=-2},
-			{corpType="NavyForce",attack=-20},
+			{corpType="AirForce",attack=40,defence=20,fuelConsumePerDay=-2},
+			{corpType="NavyForce",attack=-10},
 			{corpType="NotCapturable",moveAgain=true},
 		}},
 	},
@@ -324,7 +323,7 @@ Commanders={
 	d2d="陆军非占领系攻击+10%;其它单位攻击-10%",
 	powers={
 		{name="LandForce",translate="陆军",features={
-			{corpType="Vehicle",attack=10},
+			{corpType="Vehicle",attack=20},
 			{corpType="NotVehicle",attack=-10},
 		}},
 		{name="Turbo Charge",translate="涡轮增压",energySlot=3,features={
@@ -351,7 +350,7 @@ Commanders={
 			{indirectDefence=40,attackPerTower=20,defencePerTower=20}
 		}},
 		{name="Tower of Power",translate="力之塔",energySlot=3,features={
-			{indirectDefence=60,attackPerTower=20,defencePerTower=30}
+			{indirectDefence=60,attackPerTower=30,defencePerTower=30}
 		}},
 	},
 	author="Offical"},
@@ -524,10 +523,12 @@ Commanders={
 	d2d="所有单位攻击+40%,单位可移动地形的损耗恒为1,不受雨天影响",
 	powers={
 		{name="Invade",translate="侵略",features={
-			{attack=40,moveTerrainCost1=true}
+			{weatherType="NotSnowy",attack=40,moveTerrainCost1=true},
+			{weatherType="Snowy",attack=-40,movement=-1},
 		}},
 		{name="Meteor Strike",translate="陨石攻击",energySlot=10,features={
-			{attack=40,moveTerrainCost1=true},
+			{weatherType="NotSnowy",attack=40,moveTerrainCost1=true},
+			{weatherType="Snowy",attack=-40,movement=-1},
 			{execute="MeteorAttack"}
 		}},
 	},
@@ -769,7 +770,7 @@ Commanders={
 			{corpType="AirForce",attack=10,defence=10},
 		}},
 		{name="Air Shield",translate="气盾",energySlot=6,features={
-			{corpType="AirForce",attack=30,defence=30},
+			{corpType="AirForce",attack=25,defence=30},
 		}},
 		{name="Wingman",translate="僚机",energySlot=6,features={
 			{corpType="AirForce",attack=40,defence=70},
