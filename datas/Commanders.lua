@@ -72,10 +72,10 @@ Commanders={
 	powers={
 		{name="Normal",translate="普通"},
 		{name="Hyper Repair",translate="超级修复",energySlot=3,features={
-			{selfHPplus=20}
+			{executeFunction="HyperRepair"}
 		}},
 		{name="Hyper Upgrade",translate="超级更新",energySlot=3,features={
-			{selfHPplus=50,attack=20,movement=1}
+			{executeFunction="HyperUpgrade",attack=20,movement=1}
 		}},
 	},
 	author="Offical"},
@@ -98,7 +98,7 @@ Commanders={
 		{name="Max Blast",translate="最大爆发",energySlot=3,features={
 			{corpType="DirectAttack_NotCapturable",attack=80,movement=2},
 			{corpType="IndirectAttack",attackRangeMax=-1}
-		}}
+		}},
 	},
 	author="Offical"},
 
@@ -181,10 +181,7 @@ Commanders={
 			{capturableRepairHP=10,damageFix={0,40}}
 		}},
 		{name="Covering Fire",translate="火力掩护",energySlot=3,features={
-			{capturableRepairHP=10},
-			{Silo="CapturableCorps"},
-			{Silo="HighestPrice"},
-			{Silo="MostIntensive"},
+			{capturableRepairHP=10,executeFunction="CoveringFire"},
 		}},
 	},
 	author="Offical"},
@@ -206,7 +203,7 @@ Commanders={
 			{weatherType="Rainy",fuelCostMultiply=2}
 		}},
 		{name="Winter Fury",translate="寒冬之怒",energySlot=4,features={
-			{weatherType="Snowy",attack=20,weatherChange="Blizzard",enemyHPminus=20},
+			{weatherType="Snowy",attack=20,weatherChange="Blizzard",executeFunction="WinterFury"},
 			{weatherType="Rainy",fuelCostMultiply=2}
 		}},
 	},

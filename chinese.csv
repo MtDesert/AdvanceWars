@@ -91,3 +91,7 @@ LoadGame,读挡
 Team,队
 PLR,人脑
 COM,电脑
+--战斗画面
+Attack,攻击
+Defence,防御
+Damage,损伤

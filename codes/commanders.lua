@@ -1,4 +1,5 @@
---指挥官相关的能力描述
+--指挥官相关的能力描述,主要用于辅助../datas/Commanders.lua中的指挥官描述
+--判断条件的全局变量为:corp兵种,terrain地形,weather天气,由游戏程序直接传递进来
 
 --单位过滤条件,请判断corp变量
 function DirectAttack()--直接攻击系
@@ -131,3 +132,68 @@ end
 function Sandy()
 	return weather.isSandy
 end
+
+--CO瞬间发动的技能
+function increaseSelfUnitHP(repairHP)--增加自身HP,免费
+	forEachUnit({
+		self=function(unit)
+			repairUnit(unit,repairHP,0)
+		end,
+	})
+end
+--减少敌人HP
+function decreaseEnemyUnitHP(reduceHP)
+	forEachUnit({
+		enemy=function(unit)
+			reduceUnitHP(unit,reduceHP)
+		end,
+	})
+end
+--Andy瞬发技能
+function HyperRepair() increaseSelfUnitHP(20) end
+function HyperUpgrade()	increaseSelfUnitHP(50) end
+--Rachel瞬发技能
+function CoveringFire()
+	for i=1,3 do
+		rocketCoveringFire(2,30)
+	end
+end
+--Olaf瞬发技能
+function WinterFury() decreaseEnemyUnitHP(20) end
+--Sasha瞬发技能
+function MarketCrash()
+end
+--Eagle瞬发技能
+function LightningStrike()
+end
+--Drake瞬发技能
+function Tsunami()
+end
+function Typhoon()
+end
+--Jess瞬发技能
+function TurboCharge()end
+function Overdrive()end
+--Sensei瞬发技能
+function CopterCommand()end
+function AirborneAssault()end
+--Hawke瞬发技能
+function BlackWave()end
+function BlackStorm()end
+--Sturm瞬发技能
+function MeteorStrike()end
+--Kindle瞬发技能
+function UrbanBlight()end
+--VonBolt瞬发技能
+function ExMachina()end
+--Brenner瞬发技能
+function Reinforce()end
+--Greyfield瞬发技能
+function SupplyChain()end
+function WeatherRandom()end
+--Tabitha瞬发技能
+function StormFront()end
+--Caulder瞬发技能
+function ScienceRecover()end
+--BillyGates瞬发技能
+function LocalTyrants()end

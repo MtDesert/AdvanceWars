@@ -34,7 +34,7 @@ Terrains={
 	{name="AirFactory",translate="飞机厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复空军的工厂",produceType="AirForce"},
 	{name="ShipFactory",translate="船厂",defendLV=3,capturable=true,hasIncome=true,note="用于生产,补给,修复海军的工厂",produceType="NavyForce"},
 	--特殊用途的人工地形
-	{name="ComTower",translate="通讯塔",defendLV=2,capturable=true,note="便于指挥部队的据点,通过指挥来提升部队的杀伤力"},
+	{name="ComTower",translate="通讯塔",defendLV=2,capturable=true,note="便于指挥部队的据点,通过指挥来提升部队的杀伤力",attackPercent=10},
 	{name="Radar",translate="雷达",defendLV=2,capturable=true,note="可以探测周围环境的雷达站,在雾战时候可观测雷达周边是否有不明实体接近"},
 	{name="Lab",translate="研究所",defendLV=3,capturable=true,note="研究特定兵器的地方"},
 	{name="HQ",translate="总部",defendLV=4,capturable=true,hasIncome=true,note="总指挥整个部队的地方",repairType="LandForce"},

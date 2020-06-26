@@ -1,6 +1,6 @@
 --系统
-windowSize={800,600}
-resolution={800,600}
+windowSize={640,480}
+resolution={640,480}
 
 --语言文件
 language="chinese"
@@ -24,7 +24,8 @@ ruleBuild="codes/build.lua"--建造规则
 ruleCommanders="codes/commanders.lua"--指挥官规则
 
 --纹理加载路径
-imagesPathCorps="images/Corps"--兵种
+imagesPathCorps="images/Corps"--兵种图标
+imagesPathCorpsImages="images/CorpsAWDS"--兵种形象
 imagesPathTroops="images/Troops"--势力图标
 imagesPathTerrainCodes="images/Terrains"--地形
 imagesPathCommanders="images/Commanders/Head"--CO头像
@@ -35,3 +36,7 @@ imagesPathNumbers="images/Numbers"--数字
 
 mapsPath="maps/aw1/FieldTraining"
 scenarioScriptsPath="scripts/AdvanceWars"
+
+--网络
+serverIP="127.0.0.1"
+serverPort=0
