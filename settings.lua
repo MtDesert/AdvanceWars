@@ -36,7 +36,8 @@ imagesPathNumbers="images/Numbers"--数字
 
 mapsPath="maps/aw1/FieldTraining"
 scenarioScriptsPath="scripts/AdvanceWars"
+savesPath="saves"
 
 --网络
 serverIP="127.0.0.1"
-serverPort=0
+serverPort=2048

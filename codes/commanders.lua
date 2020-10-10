@@ -134,7 +134,7 @@ function Sandy()
 end
 
 --CO瞬间发动的技能
-function increaseSelfUnitHP(repairHP)--增加自身HP,免费
+function increaseSelfUnitsHP(repairHP)--增加自身HP,免费
 	forEachUnit({
 		self=function(unit)
 			repairUnit(unit,repairHP,0)
@@ -150,8 +150,8 @@ function decreaseEnemyUnitHP(reduceHP)
 	})
 end
 --Andy瞬发技能
-function HyperRepair() increaseSelfUnitHP(20) end
-function HyperUpgrade()	increaseSelfUnitHP(50) end
+function HyperRepair() increaseSelfUnitsHP(20) end
+function HyperUpgrade()	increaseSelfUnitsHP(50) end
 --Rachel瞬发技能
 function CoveringFire()
 	for i=1,3 do

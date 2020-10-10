@@ -28,14 +28,14 @@ flarable,布尔型,能否发射闪光弹
 
 Corps={
 	{name="Infantry",translate="步兵",corpType='LandForce',price=1000,vision=2,
-	move={movement=3,moveType="Foot",gasMax=99},
+	move={movement=3,moveType="Shoes",gasMax=99},
 	weapons={
 		{name=""},--无主武器
 		{name="MachineGun"}},
 	capturable=true},
 
 	{name="Mech",translate="机械兵",corpType='LandForce',price=3000,vision=2,
-	move={movement=2,moveType="Boot",gasMax=70},
+	move={movement=2,moveType="Boots",gasMax=70},
 	weapons={
 		{name="RocketTube",ammunitionMax=3},
 		{name="MachineGun"}},

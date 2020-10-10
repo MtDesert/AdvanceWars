@@ -1,7 +1,7 @@
 --这个模块是专门进行移动计算的模块，主要是可移动范围的计算和路径的选择处理
 
 local function tableContain(tbl,value)
-	for k,v in pairs(tbl)
+	for k,v in pairs(tbl) do
 		if v == value then
 			return true
 		end
@@ -9,9 +9,10 @@ local function tableContain(tbl,value)
 	return false
 end
 --移动损耗计算
---moveType移动类型,terrain为地形,weatherName天气名
---返回损耗值，nil为无法移动到该地形
-function movementCost(moveType,trnName,weatherName)
+--moveType移动类型,terrain为地形,
+--全局变量weather,代表当前天气
+--返回损耗值,nil为无法移动到该地形
+function movementCost(moveType,trnName)
 	--根据移动方式来判断
 	local cost=nil
 	if moveType == 'Shoes' then
